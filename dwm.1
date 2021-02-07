@@ -1,10 +1,40 @@
-.TH DWM 1 dwm\-VERSION
+.TH SPIDWM 1 dwm\-VERSION+!
 .SH NAME
-dwm \- dynamic window manager
+dwm \- dynamic window manager (spidyjuice edition!!!)
 .SH SYNOPSIS
 .B dwm
 .RB [ \-v ]
-.SH DESCRIPTION
+.SH SPIDWM FLAVOR PECULIARITIES
+.P
+Welcome to spidwm, the centerpiece of spi-de! Thank you for checking the man page,
+I will try to describe what's unique about this build of dwm to the best of my
+ability, starting with a list of dependancies that many hotkey presses will call to:
+.P
+a whole list of scripts that can be found at \/\/https:\/\/www.github.com\/spidyjuice, 
+scrot, dmenu, xdotool, st.
+.P
+every exact time an external command is called is mentioned down in the Keyboard commands
+sub-section of the USAGE section. And here is a list of common dwm patches that are applied:
+.P
+fibonacci-20200418-c82db69, dwm-single_tagset-20160731-56a31dc, dwm-switchtotag-6.2,
+dwm-focusadjacenttag-6.0, dwm-switchtotag-6.2.
+.P
+I've tried to maintain a high value of minimalism, but I find these very useful.
+the size of the space around the text in the bar is also reduced to 0 px instead of 2.
+.P
+The keybindings are minorly derivative of vim bindings. I will try to accurately describe
+them all in the USAGE section but here is a short overview. MOD+I/O switches to the
+next tag over. MOD+J/K switches focus between windows. MOD+N/M focuses different
+monitors. MOD+Enter spawns an st terminal, MOD+Shift+Enter spawns dmenu_run.
+.P
+Broadly speaking, a lot of navigation shortcuts happen on the right side of a
+qwerty keyboard, and a lot of the application launches happen on the left and
+with an aditional Shift press. This was not a dichotomy I set out to create,
+ it's just the result of what I found most comfortable. The greater part of the
+left side without the shift press is not bound to very much... Also, with the
+right scripts and setup, MOD+Control C, V, and B toggle your compositor, redshift,
+and bar.
+.SH REGULAR DWM DESCRIPTION
 dwm is a dynamic window manager for X. It manages windows in tiled, monocle
 and floating layouts. Either layout can be applied dynamically, optimising the
 environment for the application in use and the task performed.
@@ -49,108 +79,127 @@ label toggles between tiled and floating layout.
 .B Button3
 click on a tag label adds/removes all windows with that tag to/from the view.
 .TP
-.B Mod1\-Button1
+.B Mod4\-Button1
 click on a tag label applies that tag to the focused window.
 .TP
-.B Mod1\-Button3
+.B Mod4\-Button3
 click on a tag label adds/removes that tag to/from the focused window.
-.SS Keyboard commands
+.SS Navigation shortcuts	
 .TP
-.B Mod1\-Shift\-Return
-Start
-.BR st(1).
+.B Mod4\-j/k
+focus on window left (down stack) or right (up stack).
 .TP
-.B Mod1\-p
-Spawn
-.BR dmenu(1)
-for launching other programs.
+.B Mod4\-i/o
+focus on the tag to the left or right of currently focused tag (only works if just one tag is selected).
 .TP
-.B Mod1\-,
-Focus previous screen, if any.
+.B Mod4\-n/m
+focus on the next or previous monitor screen.
 .TP
-.B Mod1\-.
-Focus next screen, if any.
+.B Mod4\-Tab
+focus on the previously selected tag(s).
+.SS Navigation and tag manipulation
 .TP
-.B Mod1\-Shift\-,
-Send focused window to previous screen, if any.
+.B Mod4\-[1\-9]
+focus on tag #n.
 .TP
-.B Mod1\-Shift\-.
-Send focused window to next screen, if any.
+.B Mod4\-0/`
+focus on all tags.
 .TP
-.B Mod1\-b
-Toggles bar on and off.
+.B Mod4\-Control\-[Tag]
+select tag(s) without deselecting the currently focused tag.
 .TP
-.B Mod1\-t
-Sets tiled layout.
+.B Mod4\-Shift\-[Tag]
+Move the focused window to the new tag(s).
+.SS Window manipulation
 .TP
-.B Mod1\-f
-Sets floating layout.
+.B Mod4\-h/l
+increment or decrement the master window size.
 .TP
-.B Mod1\-m
-Sets monocle layout.
+.B Mod4\-;
+toggle between floating and fibinocci (tiling) layout.
 .TP
-.B Mod1\-space
-Toggles between current and previous layout.
+.B Mod4\-'
+toggle floating behavior for the focused window.
 .TP
-.B Mod1\-j
-Focus next window.
+.B Mod4\-,/.
+decrease or increase the ammount of windows that fit in the master window position (obsolete in the fibinocci layout).
 .TP
-.B Mod1\-k
-Focus previous window.
+.B Mod4\-g
+raise focused window to the top of the stack.
+.SS Menus
 .TP
-.B Mod1\-i
-Increase number of windows in master area.
+.B Mod4\-p
+calls dmenu_passty, a password quickmenu that works with pass and xdotool to type passwords without using any clipboard.
 .TP
-.B Mod1\-d
-Decrease number of windows in master area.
+.B Mod4\-\
+calls dmenu_sys, quick access to system tools like network management and mounting.
 .TP
-.B Mod1\-l
-Increase master area size.
+.B Mod4\-/
+calls dmenu_clipmenu, which really just calls clipmenu...
 .TP
-.B Mod1\-h
-Decrease master area size.
+.B Mod4\-r
+calls dmenu_druglog, a tool for keeping a simple log of medicinal intake.
 .TP
-.B Mod1\-Return
-Zooms/cycles focused window to/from master area (tiled layouts only).
+.B Mod4\-t
+calls dmenu_todo, derivative of the simple "todo" dmenu script, with the addition of a couple spi-de features.
 .TP
-.B Mod1\-Shift\-c
-Close focused window.
+.B Mod4\-Escape
+calls dmenu_rest, options to shut off the display(s), close the x session, call for a system shutdown, and the like.
+.SS Miscellaneous functions
 .TP
-.B Mod1\-Shift\-space
-Toggle focused window between tiled and floating state.
+.B Mod4\-a
+simulates a middle mouse click with an xdotool command.
 .TP
-.B Mod1\-Tab
-Toggles to the previously selected tags.
+.B Mod4\-s
+takes a snapshot of the screen with scrot.
+.SS Volume controls (with external scripts calling amixer commands) 
 .TP
-.B Mod1\-Shift\-[1..n]
-Apply nth tag to focused window.
+.B Mod4\-Up/Down
+vol-up, vol-dwn, slide the master output volume up or down.
 .TP
-.B Mod1\-Shift\-0
-Apply all tags to focused window.
+.B Mod4\-Right
+vol-tog, toggle the master output mute or unmute.
 .TP
-.B Mod1\-Control\-Shift\-[1..n]
-Add/remove nth tag to/from focused window.
+.B Mod4\-Left
+mic-tog, toggle the microphone input mute or unmute.
+.SS Shortcuts
 .TP
-.B Mod1\-[1..n]
-View all windows with nth tag.
+.B Mod4\-Enter
+spawn st.
 .TP
-.B Mod1\-0
-View all windows with any tag.
+.B Mod4\-Shift\-w
+call launch-web, a script for launching web browsers with conditions.
 .TP
-.B Mod1\-Control\-[1..n]
-Add/remove all windows with nth tag to/from the view.
+.B Mod4\-Shift\-c
+call launch-chat -d, a script for launching chat clients with conditions, with an optional dmenu.
 .TP
-.B Mod1\-Shift\-q
-Quit dwm.
+.B Mod4\-Shift\-e
+launch claws-mail.
+.TP
+.B Mod4\-Shift\-g
+call launch-game, a script with a dmenu for launching various video games out of one menu.
+.TP
+.B Mod4\-Shift\-m
+call rest-display, cutting power to the monitor.
+.SS Settings
+.TP
+.B Mod4\-Control\-b
+toggles the visibility of the dwm bar.
+.TP
+.B Mod4\-Control\-c
+calls compositor-switch, toggling the compositor on or off.
+.TP
+.B Mod4\-Control\-r
+calls red-switch, toggling redshift on or off.
+.TP
+.B Mod4\-Control\-Delete
+quits the window manager.
 .SS Mouse commands
 .TP
-.B Mod1\-Button1
+.B Mod4\-Button1
 Move focused window while dragging. Tiled windows will be toggled to the floating state.
 .TP
-.B Mod1\-Button2
-Toggles focused window between floating and tiled state.
-.TP
-.B Mod1\-Button3
+.B Mod4\-Button3
 Resize focused window while dragging. Tiled windows will be toggled to the floating state.
 .SH CUSTOMIZATION
 dwm is customized by creating a custom config.h and (re)compiling the source
