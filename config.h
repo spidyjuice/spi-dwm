@@ -45,7 +45,7 @@ static const Rule rules[] = {
 	{ "Fceux", NULL,    NULL,    1 << 7,       1,		   0,           -1 },
 	{ "fceux", NULL,    NULL,    1 << 7,       1,		   0,           -1 },
 	/* tag 9 - media      									*/
-	{ "feh",      NULL,       NULL,       1 << 8,       	    1,		   0,           -1 },
+	{ "feh",      NULL,       NULL,       0,       	    0,		   1,           -1 },
 	{ "mpv",      NULL,       NULL,       0,       	    0,		   1,           -1 },
 	/* tag -names      									*/
 	{ NULL,      "float",      NULL,       0,       	    0,		   1,           -1 },
@@ -124,7 +124,7 @@ static const char *menu_clipboard[]  = { "dmenu_clipmenu", NULL };
 
 /*other*/
 static const char *bonkcmd[]  = { "bonkcmd", NULL };
-static const char *screen_snap[]  = { "scrot $DATEFORMAT_scrot.png -e 'mv $f /home/storage/gallery/snaps_roll/'", NULL }; /*not set up right*/
+static const char *screen_snap[]  = { "scrotshot", NULL }; /*not set up right*/
 static const char *vol_up[]  = { "vol-up", NULL };
 static const char *vol_down[]  = { "vol-dwn", NULL };
 static const char *vol_toggle[]  = { "vol-tog", NULL };
