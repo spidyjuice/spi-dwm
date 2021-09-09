@@ -2,7 +2,7 @@
 
 /* aappearance */
 static const unsigned int borderpx  = 0;        /* border pixel of windows */
-static const unsigned int snap      = 32;       /* snap pixel */
+static const unsigned int snap      = 8;       /* snap pixel */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
 static const char *fonts[]          = { "Bitstream Vera Sans Mono:pixelsize=11:antialiasing=true:autohint=true" };
@@ -33,9 +33,9 @@ static const Rule rules[] = {
 	{ "Firefox",  NULL,       NULL,       1 << 8,       0,		   0,           -1 },
 	{ "qutebrowser", NULL,    NULL,       1,            0,		   0,           -1 },
 	{ "Nitrogen", NULL,       NULL,       1 << 6,       1,		   0,           -1 },
-	{ "Element", NULL,       NULL,        1 << 2,       1,		   0,           -1 },
-	{ "TelegramDesktop", NULL, NULL,      1 << 2,       1,		   0,           -1 },
-	{ "Claws-mail", NULL,       NULL,     1 << 3,       1,		   0,           -1 },
+	{ "Element", NULL,       NULL,        1 << 2,       0,		   0,           -1 },
+	{ "TelegramDesktop", NULL, NULL,      1 << 2,       0,		   0,           -1 },
+	{ "Claws-mail", NULL,       NULL,     1 << 3,       0,		   0,           -1 },
 	/* tag 8 - games      									*/
 	{ "openmsx",     NULL,    NULL,       1 << 7,       1,		   0,           -1 },
 	{ "Snes9x-gtk",       NULL,       NULL,    1 << 7,       1,		   0,           -1 },
@@ -105,6 +105,7 @@ static const int resizehints = 1;    /* 1 means respect size hints in tiled resi
 
 
 /*shortcuts*/
+static char mpdport[] = "6601";
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_bar, "-sf", col_gray4, NULL };
 static const char *spawn_term[]  = { "st", NULL };
@@ -118,8 +119,9 @@ static const char *launch_mail[]  = { "claws-mail", NULL };
 static const char *menu_rest[]  = { "dmenu_rest", NULL };
 static const char *menu_system[]  = { "dmenu_sys", NULL };
 static const char *menu_todo[]  = { "dmenu_todo", NULL };
+static const char *menu_todotw[]  = { "dmenu_todo", "-tw", NULL };
 static const char *menu_passwords[]  = { "dmenu_passty", NULL };
-static const char *menu_drug[]  = { "dmenu_druglog", NULL };
+static const char *menu_drug[]  = { "dmenu_druglog", "-m", NULL };
 static const char *menu_clipboard[]  = { "dmenu_clipmenu", NULL };
 
 /*other*/
@@ -135,12 +137,12 @@ static const char *rest_display[]  = { "rest-display", NULL };
 static const char *middleclick[]  = { "xdotool", "click", "2", NULL };
 
 /*music*/
-static const char *music_menu[]  = { "st", "-n", "tag7", "ncmpcpp", "--port=6601", NULL };
-static const char *music_pause[]  = { "mpc", "--port=6601", "toggle", NULL };
-static const char *music_next[]  = { "mpc", "--port=6601", "next", NULL };
-static const char *music_previous[]  = { "mpc", "--port=6601", "prev", NULL };
-static const char *music_seek_foward[]  = { "mpc", "--port=6601", "seek", "+3", NULL };
-static const char *music_seek_backward[]  = { "mpc", "--port=6601", "seek", "-3", NULL };
+static const char *music_menu[]  = { "st", "-g=80x25+50+50", "-n", "float", "-e", "vimpc", "-p", mpdport, NULL };
+static const char *music_pause[]  = { "mpc", "-p", mpdport, "toggle", NULL };
+static const char *music_next[]  = { "mpc", "-p", mpdport, "next", NULL };
+static const char *music_previous[]  = { "mpc", "-p", mpdport, "prev", NULL };
+static const char *music_seek_foward[]  = { "mpc", "-p", mpdport, "seek", "+3", NULL };
+static const char *music_seek_backward[]  = { "mpc", "-p", mpdport, "seek", "-3", NULL };
 
 
 static Key keys[] = {
@@ -163,13 +165,13 @@ static Key keys[] = {
 	{ MODKEY,                       XK_h, setmfact,    {.f = -0.05} }, 
 	{ MODKEY,                       XK_l,  setmfact,    {.f = +0.05} },
 
-	{ MODKEY,             		XK_semicolon,      setlayout,      {0} },
-	{ MODKEY,             		XK_apostrophe,  togglefloating,     {0} }, /*nearly unecessary*/
+	{ MODKEY,             		XK_apostrophe,      setlayout,      {0} },
+	{ MODKEY,             		XK_semicolon,  togglefloating,     {0} }, /*nearly unecessary*/
 
 	{ MODKEY,           		XK_comma, incnmaster, {.i = -1 } },
 	{ MODKEY,           		XK_period, incnmaster, {.i = +1 } },
 
-	{ MODKEY,           		XK_slash,  	   spawn,  	   {.v = menu_clipboard } },
+	{ MODKEY,           		XK_c,  	   spawn,  	   {.v = menu_clipboard } },
 
 	{ MODKEY,           		XK_p,  	   spawn,  	   {.v = menu_passwords } },
 
@@ -181,6 +183,7 @@ static Key keys[] = {
 
 	{ MODKEY,           		XK_r,  	   spawn,  	   {.v = menu_drug } },
 	{ MODKEY,        		XK_t,      spawn,          {.v = menu_todo } }, 
+	{ MODKEY|ShiftMask,        	XK_t,      spawn,          {.v = menu_todotw } },
 
 /*   sides*/
 	{ MODKEY,           		XK_BackSpace, spawn,  	   {.v = bonkcmd } },

@@ -64,8 +64,7 @@ dwm draws a small border around windows to indicate the focus state.
 .TP
 .B \-v
 prints version information to stderr, then exits.
-.SH USAGE
-.SS Status bar
+.SH USAGE .SS Status bar
 .TP
 .B X root window name
 is read and displayed in the status text area. It can be set with the
@@ -115,14 +114,14 @@ Move the focused window to the new tag(s).
 .B Mod4\-h/l
 increment or decrement the master window size.
 .TP
-.B Mod4\-;
-toggle between floating and fibinocci (tiling) layout.
-.TP
 .B Mod4\-'
-toggle floating behavior for the focused window.
+toggle between floating and fibinocci (tiling) layout.
 .TP
 .B Mod4\-,/.
 decrease or increase the ammount of windows that fit in the master window position (obsolete in the fibinocci layout).
+.TP
+.B Mod4\-;
+toggle floating behavior for the focused window.
 .TP
 .B Mod4\-g
 raise focused window to the top of the stack.
@@ -131,10 +130,10 @@ raise focused window to the top of the stack.
 .B Mod4\-p
 calls dmenu_passty, a password quickmenu that works with pass and xdotool to type passwords without using any clipboard.
 .TP
-.B Mod4\-\
+.B Mod4\-\\
 calls dmenu_sys, quick access to system tools like network management and mounting.
 .TP
-.B Mod4\-/
+.B Mod4\-c
 calls dmenu_clipmenu, which really just calls clipmenu...
 .TP
 .B Mod4\-r
